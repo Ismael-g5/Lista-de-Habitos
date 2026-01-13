@@ -1,15 +1,27 @@
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import { FirstComponent } from './shared/components/FirstComponent';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { MyButton } from './shared/components/MyButton';
+import { useState } from 'react';
 
 export default function App() {
+  const [hide, setHide] = useState(false);
+  // {hide &&} é uma das formas de esconder um texto no tela
+  const teste = '123'
   return (
     <SafeAreaView>
-      <FirstComponent order={1} />
-      <FirstComponent order={2} />
-      <FirstComponent order={3} />
+      
+      { hide 
+      ? <Text>Showed</Text>
+      : <Text>Hided</Text>
+    } 
+
+      
+      <TouchableOpacity onPress={() => setHide(!hide)}>
+        <Text>Toggle</Text>
+
+      </TouchableOpacity>
 
     </SafeAreaView>
     // a tag vazia se chama "fragment" para retornar uma tela vazia
