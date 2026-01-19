@@ -1,28 +1,33 @@
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Pressable } from 'react-native';
 import { MyButton } from './shared/components/MyButton';
 import { useState } from 'react';
+import { FlatList } from 'react-native';
+//import { ScrollView } from 'react-native/types_generated/index';
 
 export default function App() {
-  const [hide, setHide] = useState(false);
-  // {hide &&} é uma das formas de esconder um texto no tela
-  const teste = '123'
+  const [list, setList] = useState([
+    1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+  ]);
   return (
     <SafeAreaView>
-      
-      { hide 
-      ? <Text>Showed</Text>
-      : <Text>Hided</Text>
-    } 
+     
+    <FlatList
 
-      
-      <TouchableOpacity onPress={() => setHide(!hide)}>
-        <Text>Toggle</Text>
+    data={list}
+    keyExtractor={(item, index) => item.toString()}
+    renderItem={({item, index}) => (
+      <Text>Item {item} index {index}</Text>
+    ) }
+    />
+    <View style={styles.container}>
+    <Pressable style= { ({ pressed })  => pressed ?  styles.buttonPressed : styles.button } >
+      <Text style={styles.buttonText}>Press me</Text>
 
-      </TouchableOpacity>
-
+    </Pressable>
+    </View>
     </SafeAreaView>
     // a tag vazia se chama "fragment" para retornar uma tela vazia
     //const teste = () => {} -> é um function, assim como function teste3(){}, 
@@ -34,4 +39,32 @@ export default function App() {
   );
 }
 
+const styles = StyleSheet.create({
+  button: {
+    backgroundColor: 'red',
+    width: 100,
+    padding: 8,
+    paddingHorizontal: 16,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 4,
+
+  },
+  container: {
+    margin: 16
+  },
+  buttonText:{
+    color: 'white',
+
+  },
+  buttonPressed:{
+     backgroundColor: 'black',
+    width: 100,
+    padding: 8,
+    paddingHorizontal: 16,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 4,
+  }
+});
 
